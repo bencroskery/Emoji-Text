@@ -76,7 +76,14 @@
                 } else if (48 <= inCode && inCode <= 57) {
                     strOut += String.fromCharCode(0x30 + inCode - 48, 0xFE0F, 0x20E3)
                 } else {
-                    strOut += c;
+                    switch (inCode)
+                    {
+                        case 33: strOut += String.fromCharCode(0x2757); break;
+                        case 43: strOut += String.fromCharCode(0x2795); break;
+                        case 45: strOut += String.fromCharCode(0x2796); break;
+                        case 63: strOut += String.fromCharCode(0x2753); break;
+                        default: strOut += c;
+                    }
                 }
             }
 
