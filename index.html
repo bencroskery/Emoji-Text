@@ -1,6 +1,6 @@
 <html>
     <header>
-        <title>📜 🇪 🇲 🇴 🇯 🇮 📜</title>
+        <title>📜🇪​🇲​🇴​🇯​🇮​📜</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
     </header>
@@ -57,7 +57,7 @@
         <textarea id="input" placeholder="TYPE
   HERE
     KIDDO"></textarea>
-        <div><button id="copy">🇨 🇴 🇵 🇾</button></div>
+        <div><button id="copy">🇨​🇴​🇵​🇾​</button></div>
         <textarea id="output" readonly placeholder="G L O R Y
  A W A I T S"></textarea>
     </body>
@@ -72,21 +72,16 @@
             for (const c of strIn) {
                 var inCode = c.charCodeAt(0)
                 if (97 <= inCode && inCode <= 122) {
-                    strOut += String.fromCharCode(0xD83C, 0xDDE6 + inCode - 97) + " "
-                } else if (c === '\n') {
-                    strOut += c;
+                    strOut += String.fromCharCode(0xD83C, 0xDDE6 + inCode - 97, 0x200B)
+                } else if (48 <= inCode && inCode <= 57) {
+                    strOut += String.fromCharCode(0x30 + inCode - 48, 0xFE0F, 0x20E3)
                 } else {
-                    strOut += c + " ";
+                    strOut += c;
                 }
             }
 
-            if (strOut.length != 0) {
-                txtOut.value = strOut.substring(0, strOut.length - 1);
-                butCopy.style.display = "initial";
-            } else {
-                txtOut.value = "";
-                butCopy.style.display = "none";
-            }
+            txtOut.value = strOut;
+            butCopy.style.display = strOut.length != 0 ? "initial" : "none";
         }
         function doCopy() {
             txtOut.select();
