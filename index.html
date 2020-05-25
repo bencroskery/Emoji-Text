@@ -1,0 +1,97 @@
+<html>
+    <header>
+        <title>📜 🇪 🇲 🇴 🇯 🇮 📜</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+    </header>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        textarea {
+            resize: none;
+            flex: 1;
+            padding: 10px;
+        }
+        *:focus {
+            outline: none;
+        }
+        div {
+            height: 0;
+            overflow: visible;
+            z-index: 2;
+            text-align: right;
+        }
+        button {
+            transform: translate(0,-50%);
+            transition: all .3s;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            padding: 10px;
+            border: 0;
+            border-radius: 5px;
+            font-size: large;
+            margin-right: 5px;
+            display: none;
+        }
+        button:hover {
+            transform: translate(0,-53%);
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            textarea {
+                background-color: #232323;
+                color: white;
+                border-color: #121212;
+            }
+            button {
+                color: white;
+                background-color: #1b1b1b;
+            }
+        }
+    </style>
+    <body>
+        <textarea id="input"></textarea>
+        <div><button id="copy">🇨 🇴 🇵 🇾</button></div>
+        <textarea id="output" readonly></textarea>
+    </body>
+    <script>
+        var txtIn = document.getElementById("input");
+        var txtOut = document.getElementById("output");
+        var butCopy = document.getElementById("copy");
+        function getInput(e) {
+            var strIn = this.value.toLowerCase()
+
+            var strOut = "";
+            for (const c of strIn) {
+                var inCode = c.charCodeAt(0)
+                if (97 <= inCode && inCode <= 122) {
+                    strOut += String.fromCharCode(0xD83C, 0xDDE6 + inCode - 97) + " "
+                } else if (c === '\n') {
+                    strOut += c;
+                } else {
+                    strOut += c + " ";
+                }
+            }
+
+            if (strOut.length != 0) {
+                txtOut.value = strOut.substring(0, strOut.length - 1);
+                butCopy.style.display = "initial";
+            } else {
+                txtOut.value = "";
+                butCopy.style.display = "none";
+            }
+        }
+        function doCopy() {
+            txtOut.select();
+            document.execCommand('copy');
+        }
+        txtIn.oninput = getInput;
+        txtIn.focus();
+
+        butCopy.onclick = doCopy;
+    </script>
+</html>
